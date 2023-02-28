@@ -18,3 +18,4 @@ function hash(directoryPath) {
 }
 
 module.exports = { hash: hash };
+// mit hash Work/Masters

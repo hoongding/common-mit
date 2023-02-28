@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const zlib = require("zlib");
 const { promisify } = require("util");
-const pipeline = promisify(require("stream").pipeline);
+const pipeline = promisify(require("stream").pipeline); // pipeline 을 promise화 하기.
 
 const options = {
   filter: (filename) => {
@@ -16,10 +16,12 @@ async function zlibFunc(directoryPath) {
     // zlib 파일로 저장
     if (!file.includes(".z")) {
       const filePath = path.resolve(directoryPath, file);
-      //   const readStream = fs.createReadStream(filePath);
       const writeStream = fs.createWriteStream(filePath + ".z");
       const zlibStream = zlib.createGzip(options);
       await pipeline(fs.createReadStream(filePath), zlibStream, writeStream);
+
+      // const readStream = fs.createReadStream(filePath);
+      // readStream.pipe(zlibStream).pipe(writeStream);
     }
   }
   await printZlib(directoryPath);
@@ -37,4 +39,4 @@ async function printZlib(directoryPath) {
   }
 }
 module.exports = { zlib: zlibFunc, printZlib: printZlib };
-//mit zlib Work/Masters
+// mit zlib Work/Masters

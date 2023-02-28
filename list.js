@@ -5,6 +5,7 @@ function list(directoryPath) {
   const files = fs.readdirSync(directoryPath);
   files.forEach((file) => {
     const filePath = path.resolve(directoryPath, file);
+    // console.log(filePath);
     const stats = fs.statSync(filePath);
     const fileSize = (stats.size / 1024).toFixed(1);
     console.log(`${file} : ${fileSize}KB`);
@@ -12,3 +13,4 @@ function list(directoryPath) {
 }
 
 module.exports = { list: list };
+// mit list Work/Masters
